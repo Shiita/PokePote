@@ -40,10 +40,14 @@ public class selection_pokemon extends Activity {
             pokemons = pokedex.getJSONArray("pokemon");
             for (int i = 0; i < pokemons.length(); i++) {
                 JSONObject pokemon = pokemons.getJSONObject(i);
-                listP.add(new Pokemon(pokemon.getString("name"), "#" + pokemon.getString("resource_uri").split("/")[3]));
+                listP.add(new Pokemon("", ""));
             }
-            Log.d("listP","ok");
-            Log.d("listP",listP.toString());
+            for (int i = 0; i < pokemons.length(); i++) {
+                JSONObject pokemon = pokemons.getJSONObject(i);
+                if((Integer.parseInt(pokemon.getString("resource_uri").split("/")[3])-1)<720) {
+                    listP.set(Integer.parseInt(pokemon.getString("resource_uri").split("/")[3]) - 1, new Pokemon(pokemon.getString("name"), "#" + pokemon.getString("resource_uri").split("/")[3]));
+                }
+            }
         }catch(Exception e){
             Log.d("Exception",e.toString());
         }
