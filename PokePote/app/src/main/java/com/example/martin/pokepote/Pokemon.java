@@ -7,11 +7,13 @@ public class Pokemon {
 
     public String nom;
     public String numero;
+    public String url_image;
     //public String type;
 
-    public Pokemon(String aNom, String aNumero/*, String aType*/) {
+    public Pokemon(String aNom, String aNumero, String aUrlImage/*, String aType*/) {
         nom = aNom;
         numero = aNumero;
+        url_image = aUrlImage;
         //type = aType;
     }
 }

@@ -1,65 +1,70 @@
 package com.example.martin.pokepote;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
-public class selection_pokemon extends Activity {
+public class selection_pokemon extends ListActivity {
+
+    public JSONObject pokedex;
+    public JSONArray pokemons;
+
+    public ArrayList<Pokemon> listP = new ArrayList<Pokemon>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection_pokemon);
 
-        Log.d("selection_pokemon","ok");
         Intent intent = getIntent();
-
         Bundle result = intent.getExtras();
 
-        JSONObject pokedex = new JSONObject();
-        JSONArray pokemons = new JSONArray();
-
-        ArrayList<Pokemon> listP = new ArrayList<Pokemon>();
-
         try {
-            pokedex = new JSONObject(result.getString("pokedex"));
+            pokedex = new JSONObject(result.getString("result"));
             pokemons = pokedex.getJSONArray("pokemon");
+            //init list
             for (int i = 0; i < pokemons.length(); i++) {
-                JSONObject pokemon = pokemons.getJSONObject(i);
-                listP.add(new Pokemon("", ""));
+                listP.add(new Pokemon("", "",""));
             }
+            //remplissage de la liste de façon ordonné
             for (int i = 0; i < pokemons.length(); i++) {
                 JSONObject pokemon = pokemons.getJSONObject(i);
-                if((Integer.parseInt(pokemon.getString("resource_uri").split("/")[3])-1)<720) {
-                    listP.set(Integer.parseInt(pokemon.getString("resource_uri").split("/")[3]) - 1, new Pokemon(pokemon.getString("name"), "#" + pokemon.getString("resource_uri").split("/")[3]));
+                String numero = pokemon.getString("resource_uri").split("/")[3];
+                if((Integer.parseInt(numero)-1)<720) {
+                    listP.set(Integer.parseInt(numero) - 1, new Pokemon(pokemon.getString("name"),numero,getString(R.string.api_media) + numero + ".png"));
                 }
             }
         }catch(Exception e){
             Log.d("Exception",e.toString());
         }
-
-        //Création et initialisation de l'Adapter pour les personnes
+        //Création et initialisation de l'Adapter pour les pokemons
         pokemon_adapter adapter = new pokemon_adapter(this, listP);
 
-        //Récupération du composant ListView
-        ListView list = (ListView)findViewById(R.id.ListPokemon);
 
         //Initialisation de la liste avec les données
-        list.setAdapter(adapter);
+        setListAdapter(adapter);
     }
 
 
@@ -83,5 +88,13 @@ public class selection_pokemon extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        String urlString = getString(R.string.api_url) + "pokemon/" + position;
+        new CallAPI(getApplicationContext(),detail_pokemon.class).execute(urlString);
     }
 }

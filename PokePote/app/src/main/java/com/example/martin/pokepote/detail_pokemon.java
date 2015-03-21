@@ -1,43 +1,40 @@
 package com.example.martin.pokepote;
 
 import android.content.Intent;
-import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 
-public class accueil extends ActionBarActivity {
+public class detail_pokemon extends ActionBarActivity {
+
+    public JSONObject pokemon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accueil);
-        getPokeInfos();
+        setContentView(R.layout.activity_detail_pokemon);
+        Intent intent = getIntent();
+        Bundle result = intent.getExtras();
+        TextView nom = (TextView) findViewById(R.id.Nom);
+        try {
+            pokemon = new JSONObject(result.getString("result"));
+            nom.setText(pokemon.getString("name"));
+        }catch(Exception e){
+            Log.d("Exception", e.toString());
+        }
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_accueil, menu);
+        getMenuInflater().inflate(R.menu.menu_detail_pokemon, menu);
         return true;
     }
 
@@ -54,10 +51,5 @@ public class accueil extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void getPokeInfos() {
-        String urlString = getString(R.string.api_url) + "pokedex/1";
-        new CallAPI(getApplicationContext(),selection_pokemon.class).execute(urlString);
     }
 }

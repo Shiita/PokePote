@@ -22,6 +22,10 @@
             android:name=".selection_pokemon"
             android:label="@string/title_activity_selection_pokemon" >
         </activity>
+        <activity
+            android:name=".detail_pokemon"
+            android:label="@string/title_activity_detail_pokemon" >
+        </activity>
     </application>
 
 </manifest>
