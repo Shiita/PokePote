@@ -19,8 +19,12 @@ public class detail_pokemon extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pokemon);
+        //-------------------------------------------------
         Intent intent = getIntent();
         Bundle result = intent.getExtras();
+        //-------------------------------------------------
+        //permet de recuperer les infos du pokemon.
+
         TextView nom = (TextView) findViewById(R.id.Nom);
         try {
             pokemon = new JSONObject(result.getString("result"));

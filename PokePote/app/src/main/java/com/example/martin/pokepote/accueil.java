@@ -57,7 +57,9 @@ public class accueil extends ActionBarActivity {
     }
 
     public void getPokeInfos() {
-        String urlString = getString(R.string.api_url) + "pokedex/1";
-        new CallAPI(getApplicationContext(),selection_pokemon.class).execute(urlString);
+        String urlString = getString(R.string.api_url) + "pokedex/1"; //url à appeler pour récupérer tous les pokemon
+        new CallAPI(getApplicationContext(),selection_pokemon.class).execute(urlString);//execution de la classe callApi qui se charge de recueillir tous les pokemons
+        //Paramètres: getAppplicationContext nous donne le context actuel de la page.
+        //            selection_pokemon.class est la classe de l'activity sur laquelle nous allons être rédirigé après l'exécution de la class
     }
 }

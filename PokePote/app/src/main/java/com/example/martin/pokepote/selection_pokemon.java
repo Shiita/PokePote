@@ -37,34 +37,36 @@ public class selection_pokemon extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection_pokemon);
-
+        //-------------------------------------------------
         Intent intent = getIntent();
         Bundle result = intent.getExtras();
+        //------------------------------------------------
+        //Recupere tous les pokemons
 
         try {
-            pokedex = new JSONObject(result.getString("result"));
-            pokemons = pokedex.getJSONArray("pokemon");
+            pokedex = new JSONObject(result.getString("result"));//transforme le resultat de la requête en json
+            pokemons = pokedex.getJSONArray("pokemon");//recupere les pokemons dans un tableau d'objets
             //init list
             for (int i = 0; i < pokemons.length(); i++) {
-                listP.add(new Pokemon("", "",""));
+                listP.add(new Pokemon("", "",""));//Initialise la liste de pokemon
             }
             //remplissage de la liste de façon ordonné
             for (int i = 0; i < pokemons.length(); i++) {
                 JSONObject pokemon = pokemons.getJSONObject(i);
-                String numero = pokemon.getString("resource_uri").split("/")[3];
-                if((Integer.parseInt(numero)-1)<720) {
-                    listP.set(Integer.parseInt(numero) - 1, new Pokemon(pokemon.getString("name"),numero,getString(R.string.api_media) + numero + ".png"));
+                String numero = pokemon.getString("resource_uri").split("/")[3];//recupere le nummero du pokemon
+                if((Integer.parseInt(numero)-1)<720) { //Filtre les mega-evolutions
+                    listP.set(Integer.parseInt(numero) - 1, new Pokemon(pokemon.getString("name"),numero,getString(R.string.api_media) + numero + ".png"));//Ajoute le pokemon à la liste
                 }
             }
         }catch(Exception e){
             Log.d("Exception",e.toString());
         }
         //Création et initialisation de l'Adapter pour les pokemons
-        pokemon_adapter adapter = new pokemon_adapter(this, listP);
+        pokemon_adapter adapter = new pokemon_adapter(this, listP);//Permet de définir comment afficher la liste
 
 
         //Initialisation de la liste avec les données
-        setListAdapter(adapter);
+        setListAdapter(adapter);//Utilisationde l'adapter definit précédemment et affiche la liste
     }
 
 
@@ -90,11 +92,11 @@ public class selection_pokemon extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    //Est utilisé lorsque l'utilisateur clic sur un pokemon
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        String urlString = getString(R.string.api_url) + "pokemon/" + position;
-        new CallAPI(getApplicationContext(),detail_pokemon.class).execute(urlString);
+        String urlString = getString(R.string.api_url) + "pokemon/" + position;//url à appeler pour récupérer les informations du pokémon dont l'id est égal à position
+        new CallAPI(getApplicationContext(),detail_pokemon.class).execute(urlString);//Execute l'url
     }
 }
