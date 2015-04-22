@@ -16,4 +16,8 @@ public class Pokemon {
         url_image = aUrlImage;
         //type = aType;
     }
+
+    public String getNumero(){
+        return this.numero;
+    }
 }

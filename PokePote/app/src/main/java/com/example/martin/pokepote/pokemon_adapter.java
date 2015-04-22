@@ -1,6 +1,8 @@
 package com.example.martin.pokepote;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -52,20 +56,22 @@ public class pokemon_adapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout layoutItem;
+        ViewHolder viewHolder;
         //(1) : Réutilisation des layouts
         if (convertView == null) {
             //Initialisation de notre item à partir du  layout XML "selection_layout.xml"
             layoutItem = (LinearLayout) mInflater.inflate(R.layout.selection_layout, parent, false);
-            ViewHolder viewHolder = new ViewHolder();
+            viewHolder = new ViewHolder();
             viewHolder.nom = (TextView) layoutItem.findViewById(R.id.TV_Nom);
             viewHolder.numero = (TextView) layoutItem.findViewById(R.id.TV_Numero);
             viewHolder.image = (ImageView) layoutItem.findViewById(R.id.TV_Image);
             layoutItem.setTag(viewHolder);
         } else {
             layoutItem = (LinearLayout) convertView;
+            viewHolder = (ViewHolder) layoutItem.getTag();
         }
 
-        ViewHolder holder = (ViewHolder) layoutItem.getTag();
+
         /*//(2) : Récupération des TextView de notre layout
         TextView tv_Nom = (TextView)layoutItem.findViewById(R.id.TV_Nom);
         TextView tv_Numero = (TextView)layoutItem.findViewById(R.id.TV_Numero);
@@ -73,9 +79,26 @@ public class pokemon_adapter extends BaseAdapter {
         //TextView tv_Type = (TextView)layoutItem.findViewById(R.id.TV_Type);*/
 
         //(3) : Renseignement des valeurs
-        holder.nom.setText(mListP.get(position).nom);
-        holder.numero.setText("#" + mListP.get(position).numero);
-        new DownloadImageTask(holder.image).execute(mListP.get(position).url_image);
+        viewHolder.nom.setText(mListP.get(position).nom);
+        viewHolder.numero.setText("#" + mListP.get(position).numero);
+
+        File path = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "iconDex");
+        File image = new File(path.getPath() + "/a" + mListP.get(position).url_image.substring(mListP.get(position).url_image.lastIndexOf("/") + 1));
+
+        if (!image.exists()){
+            System.out.println("no");
+            System.out.println(mListP.get(position).url_image);
+            new DownloadImageTask(viewHolder.image, mListP.get(position).url_image, mContext);
+        }
+        else
+        {
+            System.out.println("yes");
+            try {
+                viewHolder.image.setImageBitmap(BitmapFactory.decodeFile(image.getCanonicalPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         //tv_Type.setText(mListP.get(position).type);
 
         //On retourne l'item créé.
