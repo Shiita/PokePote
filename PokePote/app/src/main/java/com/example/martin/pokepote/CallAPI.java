@@ -54,7 +54,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
             resultToDisplay = convertInputStreamToString(in);//Fonction qui permet de convertir le résultat de la requête en string
         } catch (Exception e ) {
             System.out.println(e.getMessage());
-            return resultToDisplay;
+            //return resultToDisplay;
         }
         return resultToDisplay;
     }

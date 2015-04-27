@@ -24,6 +24,8 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class selection_pokemon extends ListActivity {
@@ -46,21 +48,28 @@ public class selection_pokemon extends ListActivity {
         try {
             pokedex = new JSONObject(result.getString("result"));//transforme le resultat de la requête en json
             pokemons = pokedex.getJSONArray("pokemon");//recupere les pokemons dans un tableau d'objets
-            //init list
-            for (int i = 0; i < pokemons.length(); i++) {
-                listP.add(new Pokemon("", "",""));//Initialise la liste de pokemon
-            }
+
             //remplissage de la liste de façon ordonné
             for (int i = 0; i < pokemons.length(); i++) {
                 JSONObject pokemon = pokemons.getJSONObject(i);
                 String numero = pokemon.getString("resource_uri").split("/")[3];//recupere le nummero du pokemon
                 if((Integer.parseInt(numero)-1)<720) { //Filtre les mega-evolutions
-                    listP.set(Integer.parseInt(numero) - 1, new Pokemon(pokemon.getString("name"),numero,getString(R.string.api_media) + numero + ".png"));//Ajoute le pokemon à la liste
+                    listP.add(new Pokemon(pokemon.getString("name"),numero,getString(R.string.api_media) + numero + ".png"));//Ajoute le pokemon à la liste
                 }
+                Collections.sort(listP, new Comparator() {
+                    public int compare(Object o1, Object o2) {
+                        Integer i1 = Integer.parseInt(((Pokemon) o1).getNumero());
+                        Integer i2 = Integer.parseInt(((Pokemon) o2).getNumero());
+                        return i1.compareTo(i2);
+                    }
+
+                });
             }
+
         }catch(Exception e){
             Log.d("Exception",e.toString());
         }
+
         //Création et initialisation de l'Adapter pour les pokemons
         pokemon_adapter adapter = new pokemon_adapter(this, listP);//Permet de définir comment afficher la liste
 
