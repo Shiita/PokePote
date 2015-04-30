@@ -3,7 +3,6 @@
     package="com.example.martin.pokepote" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -27,6 +26,10 @@
         <activity
             android:name=".detail_pokemon"
             android:label="@string/title_activity_detail_pokemon" >
+        </activity>
+        <activity
+            android:name=".attaques"
+            android:label="@string/title_activity_attaques" >
         </activity>
     </application>
 

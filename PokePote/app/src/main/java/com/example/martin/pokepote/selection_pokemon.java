@@ -105,6 +105,7 @@ public class selection_pokemon extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        position = position + 1;
         String urlString = getString(R.string.api_url) + "pokemon/" + position;//url à appeler pour récupérer les informations du pokémon dont l'id est égal à position
         new CallAPI(getApplicationContext(),detail_pokemon.class).execute(urlString);//Execute l'url
     }

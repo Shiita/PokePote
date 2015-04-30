@@ -1,25 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.martin.pokepote.detail_pokemon"
-    >
+    tools:context="com.example.martin.pokepote.attaques">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:scrollbars="none"
         android:id="@+id/scrollView"
-        android:paddingBottom="50dp">
+        android:paddingBottom="50dp"
+        android:layout_marginBottom="50dp">
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:id="@+id/InfoGen"
                 android:weightSum="1">
@@ -45,15 +45,12 @@
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
+            <ListView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="15dp"
-                android:id="@+id/datas"
-                android:layout_below="@+id/InfoGen"
-                android:layout_alignParentBottom="true">
-            </LinearLayout>
+                android:id="@android:id/list"
+                android:layout_below="@+id/InfoGen" />
         </RelativeLayout>
     </ScrollView>
     <LinearLayout
@@ -67,23 +64,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Evolutions"
-            android:id="@+id/btnEvols"
+            android:text="Présentation"
+            android:id="@+id/btnPres"
             android:singleLine="true"
             android:textColor="#ffffffff"
             android:background="#ff3b0416" />
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Attaques"
-            android:id="@+id/btnAttaques"
+            android:text="Evolutions"
+            android:id="@+id/btnEvols"
             android:background="#ff3b0416"
             android:textColor="#ffffffff"
             android:singleLine="false"
-            android:nestedScrollingEnabled="false"
-            android:onClick="showAttacks" />
+            android:nestedScrollingEnabled="false"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

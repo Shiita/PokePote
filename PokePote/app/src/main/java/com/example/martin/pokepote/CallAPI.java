@@ -1,8 +1,12 @@
 package com.example.martin.pokepote;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
+
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -21,6 +25,11 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
     public Context context;
     public Class classe;
+    public int ret = 0;
+    public int id;
+    public String string;
+    public String attribut;
+    public FragmentManager manager;
 
     //Constructeur de la classe
     public CallAPI(Context aContext, Class aClasse) {
@@ -28,6 +37,14 @@ public class CallAPI extends AsyncTask<String, String, String> {
         classe = aClasse;
     }
 
+    public CallAPI(Context aContext, FragmentManager aManager, String aString, int aId, String aAttribut){
+        manager = aManager;
+        context = aContext;
+        string = aString;
+        attribut = aAttribut;
+        ret = 1;
+        id = aId;
+    }
 
     private static String convertInputStreamToString(InputStream inputStream)throws IOException {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
@@ -61,12 +78,21 @@ public class CallAPI extends AsyncTask<String, String, String> {
 
     protected void onPostExecute(String result) {
 
-        Intent intent = new Intent(context,classe);
+        if(ret == 0) {
+            Intent intent = new Intent(context, classe);
+            intent.putExtra("result", result);//Permet de transmettre le résultat de la requête vers la nouvelle activity
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Permet d'ouvrir une nouvelle activity sans être dans une activity
+            context.startActivity(intent);//Utilise le context de l'activity qui execute cette classe et déclenche l'ouverture de la nouvelle activity défini par la classe donnée dans le controlleur
+        }else{
+            try{
+                JSONObject attr = new JSONObject(result);
+                String PokeAttr = attr.getString(attribut);
+                manager.beginTransaction().add(id, pokemon_infos.newInstance(string, PokeAttr), string).commit();
+            }catch(Exception e){
+                Log.d("Error",e.toString());
+            }
 
-        intent.putExtra("result",result);//Permet de transmettre le résultat de la requête vers la nouvelle activity
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Permet d'ouvrir une nouvelle activity sans être dans une activity
-        context.startActivity(intent);//Utilise le context de l'activity qui execute cette classe et déclenche l'ouverture de la nouvelle activity défini par la classe donnée dans le controlleur
-
+        }
     }
 }
 

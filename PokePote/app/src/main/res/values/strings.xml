@@ -5,6 +5,11 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_selection_pokemon">selection_pokemon</string>
     <string name="api_url">http://pokeapi.co/api/v1/</string>
+    <string name="api">http://pokeapi.co</string>
     <string name="api_media">http://pokeapi.co/media/img/</string>
     <string name="title_activity_detail_pokemon">detail_pokemon</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_attaques">attaques</string>
 </resources>
