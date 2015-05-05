@@ -3,18 +3,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.martin.pokepote.attaques">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:scrollbars="none"
-        android:id="@+id/scrollView"
-        android:paddingBottom="50dp"
-        android:layout_marginBottom="50dp">
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -44,15 +36,56 @@
                         android:id="@+id/PokeName"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation = "horizontal"
+                    android:layout_below="@+id/PokeName">
+
+                    <TextView android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_weight="1"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="N°" />
+
+                    <TextView
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="NOM"
+                        android:textSize="15dp"
+                        android:layout_gravity="right|top"/>
+                    <TextView
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="TYPE"
+                        android:textSize="15dp"
+                        android:layout_gravity="right|top"/>
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="NIV"
+                        android:textSize="15dp"
+                        android:layout_gravity="right|top"/>
+                </LinearLayout>
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@android:id/list"
+                    android:smoothScrollbar="true"
+                    android:scrollingCache="false"
+                    android:animationCache="false"/>
             </LinearLayout>
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@android:id/list"
-                android:layout_below="@+id/InfoGen" />
         </RelativeLayout>
-    </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +101,8 @@
             android:id="@+id/btnPres"
             android:singleLine="true"
             android:textColor="#ffffffff"
-            android:background="#ff3b0416" />
+            android:background="#ff3b0416"
+            android:onClick="showGenInfo" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

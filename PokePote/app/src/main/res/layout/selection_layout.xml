@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:id="@+id/LL_Fond">
+    android:id="@+id/LL_Fond"
+    android:orientation="horizontal">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -10,10 +11,16 @@
         android:name="Image"/>
     <TextView android:text="Numero" android:id="@+id/TV_Numero"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center"
+        android:layout_marginLeft="5dp"
+        android:textSize="25dp">
     </TextView>
     <TextView android:text="Nom" android:id="@+id/TV_Nom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_gravity="center|center"
+        android:layout_marginLeft="5dp">
     </TextView>
 </LinearLayout>

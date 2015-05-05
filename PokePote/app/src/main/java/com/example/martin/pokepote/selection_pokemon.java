@@ -54,7 +54,7 @@ public class selection_pokemon extends ListActivity {
                 JSONObject pokemon = pokemons.getJSONObject(i);
                 String numero = pokemon.getString("resource_uri").split("/")[3];//recupere le nummero du pokemon
                 if((Integer.parseInt(numero)-1)<720) { //Filtre les mega-evolutions
-                    listP.add(new Pokemon(pokemon.getString("name"),numero,getString(R.string.api_media) + numero + ".png"));//Ajoute le pokemon à la liste
+                    listP.add(new Pokemon(pokemon.getString("name").replaceFirst("[a-z]",String.valueOf(pokemon.getString("name").toCharArray()[0]).toUpperCase()),numero,getString(R.string.api_media) + numero + ".png"));//Ajoute le pokemon à la liste
                 }
                 Collections.sort(listP, new Comparator() {
                     public int compare(Object o1, Object o2) {

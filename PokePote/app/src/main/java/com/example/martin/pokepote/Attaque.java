@@ -15,4 +15,14 @@ public class Attaque {
         type = aType;
         level = aLevel;
     }
+
+    @Override
+    public String toString() {
+        return "Attaque{" +
+                "nom='" + nom + '\'' +
+                ", numero='" + numero + '\'' +
+                ", type='" + type + '\'' +
+                ", level='" + level + '\'' +
+                '}';
+    }
 }
