@@ -23,8 +23,8 @@
                     android:layout_gravity="center_horizontal" />
 
                 <LinearLayout
-                    android:layout_width="140dp"
-                    android:layout_height="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/PokeImg"
                     android:layout_gravity="center_horizontal">
 
@@ -98,11 +98,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Présentation"
-            android:id="@+id/btnPres"
+            android:id="@+id/btnPresentation"
             android:singleLine="true"
             android:textColor="#ffffffff"
             android:background="#ff3b0416"
-            android:onClick="showGenInfo" />
+            android:onClick="showPresentation" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,15 +112,17 @@
             android:background="#ff3b0416"
             android:textColor="#ffffffff"
             android:singleLine="false"
-            android:nestedScrollingEnabled="false"/>
+            android:nestedScrollingEnabled="false"
+            android:onClick="showEvolutions"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Oeufs"
-            android:id="@+id/btnOeufs"
+            android:text="Descriptions"
+            android:id="@+id/btnDescriptions"
             android:background="#ff3b0416"
             android:textColor="#ffffffff"
-            android:singleLine="false" />
+            android:singleLine="false"
+            android:onClick="showDescriptions"/>
     </LinearLayout>
 </RelativeLayout>

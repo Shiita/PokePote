@@ -45,6 +45,8 @@ public class selection_pokemon extends ListActivity {
         //------------------------------------------------
         //Recupere tous les pokemons
 
+        this.setTitle("Selection");
+
         try {
             pokedex = new JSONObject(result.getString("result"));//transforme le resultat de la requête en json
             pokemons = pokedex.getJSONArray("pokemon");//recupere les pokemons dans un tableau d'objets
@@ -72,8 +74,6 @@ public class selection_pokemon extends ListActivity {
 
         //Création et initialisation de l'Adapter pour les pokemons
         pokemon_adapter adapter = new pokemon_adapter(this, listP);//Permet de définir comment afficher la liste
-
-
         //Initialisation de la liste avec les données
         setListAdapter(adapter);//Utilisationde l'adapter definit précédemment et affiche la liste
     }
@@ -82,7 +82,7 @@ public class selection_pokemon extends ListActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_selection_pokemon, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -107,6 +107,7 @@ public class selection_pokemon extends ListActivity {
         super.onListItemClick(l, v, position, id);
         position = position + 1;
         String urlString = getString(R.string.api_url) + "pokemon/" + position;//url à appeler pour récupérer les informations du pokémon dont l'id est égal à position
-        new CallAPI(getApplicationContext(),detail_pokemon.class).execute(urlString);//Execute l'url
+        String result = util.call(urlString);
+        util.goToActivity(result,detail_pokemon.class,getApplicationContext());
     }
 }

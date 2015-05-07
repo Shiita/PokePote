@@ -31,10 +31,11 @@
                     android:layout_gravity="center_horizontal" />
 
                 <LinearLayout
-                    android:layout_width="140dp"
-                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/PokeImg"
-                    android:layout_gravity="center_horizontal">
+                    android:layout_gravity="center_horizontal|top"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -43,6 +44,28 @@
                         android:textSize="20dp"
                         android:id="@+id/PokeName"
                         android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="DESCRIPTION"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/PokeDes"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -71,7 +94,9 @@
             android:id="@+id/btnEvols"
             android:singleLine="true"
             android:textColor="#ffffffff"
-            android:background="#ff3b0416" />
+            android:background="#ff3b0416"
+            android:onClick="showEvolutions"
+            android:nestedScrollingEnabled="false" />
 
         <Button
             android:layout_width="wrap_content"
@@ -88,10 +113,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Oeufs"
-            android:id="@+id/btnOeufs"
+            android:text="Descriptions"
+            android:id="@+id/btnDescriptions"
             android:background="#ff3b0416"
             android:textColor="#ffffffff"
-            android:singleLine="false" />
+            android:singleLine="false"
+            android:onClick="showDescriptions"/>
     </LinearLayout>
 </RelativeLayout>

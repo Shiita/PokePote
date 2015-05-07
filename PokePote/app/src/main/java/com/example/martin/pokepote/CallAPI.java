@@ -23,34 +23,15 @@ import java.net.URL;
 //Nous devons utiliser AsyncTask car cette fonction est lourde et doit être fait de manière asynchrone
 public class CallAPI extends AsyncTask<String, String, String> {
 
-    public Context context;
-    public Class classe;
-    public int ret = 0;
-    public int id;
-    public String string;
-    public String attribut;
-    public FragmentManager manager;
+    public CallAPI(){
 
-    //Constructeur de la classe
-    public CallAPI(Context aContext, Class aClasse) {
-        context = aContext;
-        classe = aClasse;
     }
 
-    public CallAPI(Context aContext, FragmentManager aManager, String aString, int aId, String aAttribut){
-        manager = aManager;
-        context = aContext;
-        string = aString;
-        attribut = aAttribut;
-        ret = 1;
-        id = aId;
-    }
-
-    private static String convertInputStreamToString(InputStream inputStream)throws IOException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = "";
         String result = "";
-        while((line = bufferedReader.readLine()) != null)
+        while ((line = bufferedReader.readLine()) != null)
             result += line;
         inputStream.close();
         return result;
@@ -59,7 +40,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String urlString=params[0];
+        String urlString = params[0];
         String resultToDisplay = null;
         InputStream in = null;
 
@@ -69,7 +50,7 @@ public class CallAPI extends AsyncTask<String, String, String> {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();//Appel sur l'url transmis.
             in = new BufferedInputStream(urlConnection.getInputStream());//Récupération du résultat de la requête
             resultToDisplay = convertInputStreamToString(in);//Fonction qui permet de convertir le résultat de la requête en string
-        } catch (Exception e ) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             //return resultToDisplay;
         }
@@ -77,22 +58,6 @@ public class CallAPI extends AsyncTask<String, String, String> {
     }
 
     protected void onPostExecute(String result) {
-
-        if(ret == 0) {
-            Intent intent = new Intent(context, classe);
-            intent.putExtra("result", result);//Permet de transmettre le résultat de la requête vers la nouvelle activity
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Permet d'ouvrir une nouvelle activity sans être dans une activity
-            context.startActivity(intent);//Utilise le context de l'activity qui execute cette classe et déclenche l'ouverture de la nouvelle activity défini par la classe donnée dans le controlleur
-        }else{
-            try{
-                JSONObject attr = new JSONObject(result);
-                String PokeAttr = attr.getString(attribut);
-                manager.beginTransaction().add(id, pokemon_infos.newInstance(string, PokeAttr), string).commit();
-            }catch(Exception e){
-                Log.d("Error",e.toString());
-            }
-
-        }
+        super .onPostExecute(result);
     }
 }
-

@@ -35,6 +35,14 @@
             android:name=".detail_attaque"
             android:label="@string/title_activity_detail_attaque" >
         </activity>
+        <activity
+            android:name=".evolutions"
+            android:label="@string/title_activity_evolutions" >
+        </activity>
+        <activity
+            android:name=".descriptions"
+            android:label="@string/title_activity_descriptions" >
+        </activity>
     </application>
 
 </manifest>

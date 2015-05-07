@@ -44,6 +44,8 @@ public class detail_attaque extends ActionBarActivity implements pokemon_infos.O
             res = result.getString("result");
             attaque = new JSONObject(res);
 
+            this.setTitle(attaque.getString("name") + " - Details");
+
             AtkName.setText("#" + attaque.getString("id") + " " +  attaque.getString("name"));
             AtkDes.setText(attaque.getString("description"));
 
@@ -63,7 +65,7 @@ public class detail_attaque extends ActionBarActivity implements pokemon_infos.O
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detail_attaque, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 

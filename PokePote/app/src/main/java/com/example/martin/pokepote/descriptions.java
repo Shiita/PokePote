@@ -2,10 +2,7 @@ package com.example.martin.pokepote;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,30 +11,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 
-public class attaques extends ListActivity {
+public class descriptions extends ListActivity {
 
     public String res;
     public JSONObject pokemon;
-    public JSONArray attaques;
-    public List<Attaque> list = new ArrayList<Attaque>();
+    public JSONArray descriptions;
+    public JSONObject description;
+    public List<Description> list = new ArrayList<Description>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_attaques);
+        setContentView(R.layout.activity_descriptions);
         Intent intent = getIntent();
         Bundle result = intent.getExtras();
         TextView PokeName = (TextView) findViewById(R.id.PokeName);
@@ -47,9 +43,9 @@ public class attaques extends ListActivity {
         try {
             res = result.getString("result");
             pokemon = new JSONObject(res);
-            attaques = pokemon.getJSONArray("moves");
+            descriptions = pokemon.getJSONArray("descriptions");
 
-            this.setTitle(pokemon.getString("name") + " - Attaques");
+            this.setTitle(pokemon.getString("name") + " - Descriptions");
 
             if(pokemon.getJSONArray("evolutions").length() == 0){
                 evolButton.setEnabled(false);
@@ -60,37 +56,25 @@ public class attaques extends ListActivity {
             PokeName.setText("#" + pokemon.getString("national_id") + " " +  pokemon.getString("name"));
             util.showImg(getApplicationContext(),pokemon,PokeImg);
 
-            for(int i=0;i<attaques.length();i++){
-                JSONObject attaque = attaques.getJSONObject(i);
-                Log.d("attaque " + i,attaque.toString());
-                String nom = attaque.getString("name");
-                String learn_type = attaque.getString("learn_type");
-                String level = "999";
-                if(attaque.has("level")) {
-                   level = attaque.getString("level");
-                }
-                //String numero = "0";
-                String numero = attaque.getString("resource_uri").split("/")[4];
-                list.add(new Attaque(numero,nom,learn_type,level));
+            for(int i=0;i<descriptions.length();i++){
+                String urlString = getString(R.string.api) + descriptions.getJSONObject(i).getString("resource_uri");
+                description = new JSONObject(util.call(urlString));
+                list.add(new Description(description.getString("name").split("_")[2],description.getString("description")));
             }
 
             Collections.sort(list, new Comparator() {
                 public int compare(Object o1, Object o2) {
-                    Integer i1 = Integer.parseInt(((Attaque) o1).level);
-                    Integer i2 = Integer.parseInt(((Attaque) o2).level);
+                    Integer i1 = Integer.parseInt(((Description) o1).generation);
+                    Integer i2 = Integer.parseInt(((Description) o2).generation);
                     return i1.compareTo(i2);
                 }
             });
 
-           for(Attaque atk : list){
-               if(atk.level.equals("999")){
-                   atk.level = "";
-               }
-           }
         }catch(Exception e){
             Log.d("Exception", e.toString());
         }
-        attaques_adapter adapter = new attaques_adapter(this, list);
+
+        description_adapter adapter = new description_adapter(this, list);
         setListAdapter(adapter);
     }
 
@@ -117,25 +101,15 @@ public class attaques extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        String num_atk = list.get(position).numero;
-        String urlString = getString(R.string.api_url) + "move/" + num_atk;//url à appeler pour récupérer les informations du pokémon dont l'id est égal à position
-        String result = util.call(urlString);
-        util.goToActivity(result,detail_attaque.class,getApplicationContext());
-    }
-
     public void showPresentation(View view){
         util.goToActivity(res,detail_pokemon.class,getApplicationContext());
+    }
+
+    public void showAttacks(View view){
+        util.goToActivity(res,attaques.class,getApplicationContext());
     }
 
     public void showEvolutions(View view){
         util.goToActivity(res,evolutions.class,getApplicationContext());
     }
-
-    public void showDescriptions(View view){
-        util.goToActivity(res,descriptions.class,getApplicationContext());
-    }
-
 }

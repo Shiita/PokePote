@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.martin.pokepote.descriptions">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:id="@+id/InfoGen"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:id="@+id/PokeImg"
+                android:layout_gravity="center_horizontal" />
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/PokeImg"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20dp"
+                    android:id="@+id/PokeName"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@android:id/list"
+                android:smoothScrollbar="true"
+                android:scrollingCache="false"
+                android:animationCache="false"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/Actions"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Présentation"
+            android:id="@+id/btnPresentation"
+            android:singleLine="true"
+            android:textColor="#ffffffff"
+            android:background="#ff3b0416"
+            android:onClick="showPresentation" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Evolutions"
+            android:id="@+id/btnEvols"
+            android:background="#ff3b0416"
+            android:textColor="#ffffffff"
+            android:singleLine="false"
+            android:nestedScrollingEnabled="false"
+            android:onClick="showEvolutions"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Attaques"
+            android:id="@+id/btnAttaques"
+            android:background="#ff3b0416"
+            android:textColor="#ffffffff"
+            android:singleLine="false"
+            android:onClick="showAttacks"/>
+    </LinearLayout>
+</RelativeLayout>
