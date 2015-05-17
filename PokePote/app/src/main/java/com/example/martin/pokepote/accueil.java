@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+//------------------------------------------------------------//
+//                                                            //
+//                  Activity d'accueil.                       //
+//  Image Pokepote d'attente pour charger tous les pokemons.  //
+//                                                            //
+//------------------------------------------------------------//
 
 public class accueil extends ActionBarActivity {
 
@@ -39,9 +45,17 @@ public class accueil extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    //------------------------------------------------------------------------------------------//
+    //                                                                                          //
+    //  Recuperation de la liste des pokemons et appel à l'activity de la sélection du pokemon  //
+    //                                                                                          //
+    //------------------------------------------------------------------------------------------//
+
     public void getPokeInfos() {
             String urlString = getString(R.string.api_url) + "pokedex/1"; //url à appeler pour récupérer tous les pokemon
-            String result = util.call(urlString);
-            util.goToActivity(result,selection_pokemon.class,getApplicationContext());
+            String result = util.call(urlString); //appel à l'api
+            util.goToActivity(result,selection_pokemon.class,getApplicationContext()); //appel à l'activity de la sélection du pokemon
    }
 }

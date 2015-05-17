@@ -24,6 +24,12 @@ import java.text.DecimalFormat;
 
 import static com.example.martin.pokepote.util.call;
 
+//--------------------------------------//
+//                                      //
+//  Affichage des details d'un pokemon  //
+//                                      //
+//--------------------------------------//
+
 
 public class detail_pokemon extends ActionBarActivity implements pokemon_infos.OnFragmentInteractionListener{
 
@@ -44,18 +50,26 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pokemon);
-        //-------------------------------------------------
+
+        //-------------------------------------------------------------//
+        //                      Initialisation                         //
+
         Intent intent = getIntent();
         Bundle result = intent.getExtras();
         DecimalFormat df = new DecimalFormat("#######0.0");
-        //-------------------------------------------------
-        //permet de recuperer les infos du pokemon.
         TextView PokeName = (TextView) findViewById(R.id.PokeName);
         ImageView PokeImg = (ImageView) findViewById(R.id.PokeImg);
         Button evolButton = (Button) findViewById(R.id.btnEvols);
         TextView PokeDes = (TextView) findViewById(R.id.PokeDes);
 
+        //-------------------------------------------------------------//
+
+
         try {
+
+            //-------------------------------------------------------------------//
+            //  Récupération des informations concernant le pokemon sélectionné  //
+
             res = result.getString("result");
             pokemon = new JSONObject(res);
             types = pokemon.getJSONArray("types");
@@ -66,7 +80,15 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
             poids = pokemon.getInt("weight") * 0.1;
             taille = pokemon.getInt("height") * 0.1;
 
-            this.setTitle(pokemon.getString("name") + " - Details");
+            //-------------------------------------------------------------------//
+
+
+            this.setTitle(pokemon.getString("name") + " - Details"); // Definie le titre de l'activity
+
+
+            //-----------------------------------------------------------------------------------------//
+            //          Verification de l'existence d'une ou plusieurs evolutions du pokemon           //
+            //  Si ce n'est pas le cas le bouton évolutions est rendu indisponible pour l'utilisateur  //
 
             if(evols.length() == 0){
                 evolButton.setEnabled(false);
@@ -74,18 +96,32 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
                 evolButton.setTextColor(Color.parseColor("#ff3b0416"));
             }
 
-            PokeName.setText("#" + pokemon.getString("national_id") + " " +  pokemon.getString("name"));
-            util.showImg(getApplicationContext(),pokemon,PokeImg);
+            //-----------------------------------------------------------------------------------------//
 
+
+
+            //----------------------------------------------------------------------------------------------//
+            //                           Affichage des informations du pokemon                              //
+            //  Utilisation d'un fragment atkDatas pour recuperer les informations générales sur l'attaque  //
+
+            PokeName.setText("#" + pokemon.getString("national_id") + " " +  pokemon.getString("name")); // Affichage du numero + nom du pokemon
+            util.showImg(getApplicationContext(),pokemon,PokeImg); // Affichage de l'image du pokemmon
+
+            //------------------------------------------//
+            //  Affichage de la description du pokemon  //
             String urlString = getString(R.string.api) + descriptions.getJSONObject(0).getString("resource_uri");
             JSONObject description = new JSONObject(util.call(urlString));
             PokeDes.setText(description.getString("description"));
+            //------------------------------------------//
+
 
             typesStr = util.arrayToString(types);
             oeufsStr = util.arrayToString(oeufs);
             capcitesStr = util.arrayToString(capacites);
 
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("INFOS GENERALES",""), "INFOSGEN").commit();
+            //---------------------------------------------//
+            //  Affichage des infos generales  du pokemon  //
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("GENERAL INFORMATIONS",""), "INFOSGEN").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Species",pokemon.getString("species")), "espece").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Type(s)", typesStr), "types").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Abilities", capcitesStr), "capacite").commit();
@@ -95,7 +131,11 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Catch Rate", pokemon.getString("catch_rate") + "%"), "taux").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Egg Cycle", pokemon.getString("egg_cycles")), "cycle").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Egg Groups", oeufsStr), "oeufs").commit();
+            //---------------------------------------------//
 
+
+            //------------------------------------------//
+            //  Affichage des statistiques  du pokemon  //
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("",""), "blanck1").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("BASE STATS",""), "STATISTIQUES").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("HP", pokemon.getString("hp")), "pv").commit();
@@ -105,7 +145,10 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Attack", pokemon.getString("attack")), "attaque").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Sp. Def.", pokemon.getString("sp_def")), "defense_spe").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Sp. Atk.", pokemon.getString("sp_atk")), "attaque_spe").commit();
+            //------------------------------------------//
 
+            //-------------------------------------------------//
+            //  Affichage des forces et faiblesses du pokemon  //
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("",""), "blanck2").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("TYPE EFFECTIVENESS",""), "forcesfaiblesses").commit();
             for(int i=0;i<types.length();i++){
@@ -128,6 +171,9 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
                 getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("",""), "blanck" + j ).commit();
             /**Elise**/
             }
+            //-------------------------------------------------//
+
+            //----------------------------------------------------------------------------------------------//
 
 
 
@@ -164,16 +210,23 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
 
     }
 
+
+    //------------------------------------------------------//
+    //                                                      //
+    //  Evenement lorsque l'on appui sur un boutons du bas  //
+    //                                                      //
+    //------------------------------------------------------//
+
     public void showAttacks(View view){
-        util.goToActivity(res,attaques.class,getApplicationContext());
+        util.goToActivity(res,attaques.class,getApplicationContext()); //appel à l'activity du attaques du pokemon
     }
 
     public void showEvolutions(View view){
-        util.goToActivity(res,evolutions.class,getApplicationContext());
+        util.goToActivity(res,evolutions.class,getApplicationContext()); //appel à l'activity des evolutions du pokemon
     }
 
     public void showDescriptions(View view){
-        util.goToActivity(res,descriptions.class,getApplicationContext());
+        util.goToActivity(res,descriptions.class,getApplicationContext()); //appel à l'activity des descriptions du pokemon
     }
 
 }

@@ -18,11 +18,14 @@ import org.json.JSONObject;
 import java.io.File;
 import java.text.DecimalFormat;
 
+//---------------------------------------//
+//                                       //
+//  Affichage des details d'une attaque  //
+//                                       //
+//---------------------------------------//
+
 
 public class detail_attaque extends ActionBarActivity implements pokemon_infos.OnFragmentInteractionListener {
-
-
-
 
     public JSONObject attaque;
     public String res;
@@ -32,22 +35,35 @@ public class detail_attaque extends ActionBarActivity implements pokemon_infos.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_attaque);
 
-        //-------------------------------------------------
+        //-------------------------------------------------------------//
+        //                      Initialisation                         //
+
         Intent intent = getIntent();
         Bundle result = intent.getExtras();
-        //-------------------------------------------------
-        //permet de recuperer les infos du pokemon.
         TextView AtkName = (TextView) findViewById(R.id.AtkName);
         TextView AtkDes = (TextView) findViewById(R.id.AtkDes);
 
+        //-------------------------------------------------------------//
+
         try {
+
+            //-----------------------------------//
+            //     Récupération de l'attaque     //
+
             res = result.getString("result");
             attaque = new JSONObject(res);
 
-            this.setTitle(attaque.getString("name") + " - Details");
+            //-----------------------------------//
 
-            AtkName.setText("#" + attaque.getString("id") + " " +  attaque.getString("name"));
-            AtkDes.setText(attaque.getString("description"));
+
+            this.setTitle(attaque.getString("name") + " - Details"); // Definie le titre de l'activity
+
+            //----------------------------------------------------------------------------------------------//
+            //                         Affichage des informations de l'attaque                              //
+            //  Utilisation d'un fragment atkDatas pour recuperer les informations générales sur l'attaque  //
+
+            AtkName.setText("#" + attaque.getString("id") + " " +  attaque.getString("name")); // Affichage du numero + nom de l'attaque
+            AtkDes.setText(attaque.getString("description")); // Affichage de la description de l'attaque
 
             getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("",""), "blank").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("GENERAL INFORMATIONS",""), "INFOSGEN").commit();
@@ -55,6 +71,8 @@ public class detail_attaque extends ActionBarActivity implements pokemon_infos.O
             getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("PP", attaque.getString("pp")), "pp").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("Power", attaque.getString("power")), "puissance").commit();
             getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("Accuracy", attaque.getString("accuracy")), "precision").commit();
+
+            //----------------------------------------------------------------------------------------------//
 
         }catch(Exception e){
             Log.d("Exception", e.toString());

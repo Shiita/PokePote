@@ -18,9 +18,19 @@ import java.util.List;
 /**
  * Created by Martin on 30/04/2015.
  */
+
+//------------------------------------------------------------------------//
+//                                                                        //
+//             Adapter de liste des attaques d'un pokemon                 //
+//  Définie les propriétés d'affichage à liste des attaques d'un pokemon  //
+//                                                                        //
+//------------------------------------------------------------------------//
+
+
+
 public class attaques_adapter extends BaseAdapter {
 
-    // Une liste de personnes
+    // Une liste d'attaques
     private List<Attaque> mListP;
 
     //Le contexte dans lequel est présent notre adapter
@@ -58,11 +68,12 @@ public class attaques_adapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout layoutItem;
         ViewHolder viewHolder;
-        //(1) : Réutilisation des layouts
+        //Réutilisation des layouts
         if (convertView == null) {
             //Initialisation de notre item à partir du  layout XML "selection_layout.xml"
             layoutItem = (LinearLayout) mInflater.inflate(R.layout.attaques_layout, parent, false);
             viewHolder = new ViewHolder();
+            //Récupération des TextView de notre layout
             viewHolder.nom = (TextView) layoutItem.findViewById(R.id.AT_Nom);
             viewHolder.numero = (TextView) layoutItem.findViewById(R.id.AT_Numero);
             viewHolder.type = (TextView) layoutItem.findViewById(R.id.AT_Type);
@@ -73,14 +84,7 @@ public class attaques_adapter extends BaseAdapter {
             viewHolder = (ViewHolder) layoutItem.getTag();
         }
 
-
-        /*//(2) : Récupération des TextView de notre layout
-        TextView tv_Nom = (TextView)layoutItem.findViewById(R.id.TV_Nom);
-        TextView tv_Numero = (TextView)layoutItem.findViewById(R.id.TV_Numero);
-        ImageView tv_Image = (ImageView) layoutItem.findViewById(R.id.TV_Image);
-        //TextView tv_Type = (TextView)layoutItem.findViewById(R.id.TV_Type);*/
-
-        //(3) : Renseignement des valeurs
+        //Renseignement des valeurs
         viewHolder.nom.setText(mListP.get(position).nom);
         viewHolder.numero.setText(mListP.get(position).numero);
         viewHolder.level.setText(mListP.get(position).level);
