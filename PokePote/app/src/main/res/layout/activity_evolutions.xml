@@ -250,7 +250,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Attaques"
+            android:text="Moves"
             android:id="@+id/btnAttaques"
             android:background="#ff3b0416"
             android:textColor="#ffffffff"

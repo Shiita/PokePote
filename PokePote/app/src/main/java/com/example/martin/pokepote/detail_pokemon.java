@@ -86,28 +86,28 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
             capcitesStr = util.arrayToString(capacites);
 
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("INFOS GENERALES",""), "INFOSGEN").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("espèce",pokemon.getString("species")), "espece").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("types", typesStr), "types").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("capacités", capcitesStr), "capacite").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("poids", df.format(poids) + " kg"), "poids").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("taille", df.format(taille) + " m"), "taile").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("ratio male/femelle", pokemon.getString("male_female_ratio")), "ratio").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("taux de capture", pokemon.getString("catch_rate") + "%"), "taux").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("cycle des oeufs", pokemon.getString("egg_cycles")), "cycle").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("oeufs", oeufsStr), "oeufs").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Species",pokemon.getString("species")), "espece").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Type(s)", typesStr), "types").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Abilities", capcitesStr), "capacite").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Weight", df.format(poids) + " kg"), "poids").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Height", df.format(taille) + " m"), "taile").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Gender Ratio", pokemon.getString("male_female_ratio")), "ratio").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Catch Rate", pokemon.getString("catch_rate") + "%"), "taux").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Egg Cycle", pokemon.getString("egg_cycles")), "cycle").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Egg Groups", oeufsStr), "oeufs").commit();
 
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("",""), "blanck1").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("STATISTIQUES",""), "STATISTIQUES").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("pv", pokemon.getString("hp")), "pv").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("expérience", pokemon.getString("exp")), "experience").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("vitesse", pokemon.getString("speed")), "vitesse").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("défense", pokemon.getString("defense")), "defense").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("attaque", pokemon.getString("attack")), "attaque").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("défense spéciale", pokemon.getString("sp_def")), "defense_spe").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("attaque spéciale", pokemon.getString("sp_atk")), "attaque_spe").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("BASE STATS",""), "STATISTIQUES").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("HP", pokemon.getString("hp")), "pv").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Exp", pokemon.getString("exp")), "experience").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Speed", pokemon.getString("speed")), "vitesse").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Defense", pokemon.getString("defense")), "defense").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Attack", pokemon.getString("attack")), "attaque").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Sp. Def.", pokemon.getString("sp_def")), "defense_spe").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Sp. Atk.", pokemon.getString("sp_atk")), "attaque_spe").commit();
 
             getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("",""), "blanck2").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("FORCES ET FAIBLESSES",""), "forcesfaiblesses").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("TYPE EFFECTIVENESS",""), "forcesfaiblesses").commit();
             for(int i=0;i<types.length();i++){
                 JSONObject type = types.getJSONObject(i);
                 int j = i + 2;
@@ -120,12 +120,13 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
                 String resistant = util.arrayToString(type.getJSONArray("resistance"));
                 String superefficace = util.arrayToString(type.getJSONArray("super_effective"));
                 String faible = util.arrayToString(type.getJSONArray("weakness"));
-                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("sans effet",sanseffet), "sanseffet"+ i).commit();
-                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("inefficace",inefficace), "inefficace"+ i).commit();
-                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("faible",faible), "faible"+ i).commit();
-                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("résistant",resistant), "resistant"+ i).commit();
-                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("super efficace",superefficace), "supperefficace"+ i).commit();
+                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("No effect",sanseffet), "sanseffet"+ i).commit();
+                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Ineffective",inefficace), "inefficace"+ i).commit();
+                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Weakness",faible), "faible"+ i).commit();
+                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Resistance",resistant), "resistant"+ i).commit();
+                getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("Super effective",superefficace), "supperefficace"+ i).commit();
                 getFragmentManager().beginTransaction().add(findViewById(R.id.datas).getId(), pokemon_infos.newInstance("",""), "blanck" + j ).commit();
+            /**Elise**/
             }
 
 

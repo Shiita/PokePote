@@ -50,11 +50,11 @@ public class detail_attaque extends ActionBarActivity implements pokemon_infos.O
             AtkDes.setText(attaque.getString("description"));
 
             getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("",""), "blank").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("INFOS GENERALES",""), "INFOSGEN").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("catégorie",attaque.getString("category")), "categorie").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("pp", attaque.getString("pp")), "pp").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("puissance", attaque.getString("power")), "puissance").commit();
-            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("précision", attaque.getString("accuracy")), "precision").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("GENERAL INFORMATIONS",""), "INFOSGEN").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("Category",attaque.getString("category")), "categorie").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("PP", attaque.getString("pp")), "pp").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("Power", attaque.getString("power")), "puissance").commit();
+            getFragmentManager().beginTransaction().add(findViewById(R.id.atkdatas).getId(), pokemon_infos.newInstance("Accuracy", attaque.getString("accuracy")), "precision").commit();
 
         }catch(Exception e){
             Log.d("Exception", e.toString());
