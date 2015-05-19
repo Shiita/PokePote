@@ -20,6 +20,12 @@ import java.io.File;
 import java.text.DecimalFormat;
 
 
+//-----------------------------------------//
+//                                         //
+//  Affichage des evolutions d'un pokemon  //
+//                                         //
+//-----------------------------------------//
+
 public class evolutions extends ActionBarActivity {
 
     public JSONObject pokemon;
@@ -35,11 +41,10 @@ public class evolutions extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evolutions);
 
-        //-------------------------------------------------
+        //-------------------------------------------------------------//
+        //                      Initialisation                         //
         Intent intent = getIntent();
         Bundle result = intent.getExtras();
-        //-------------------------------------------------
-        //permet de recuperer les infos du pokemon.
         TextView PokeName = (TextView) findViewById(R.id.PokeName);
         ImageView PokeImg = (ImageView) findViewById(R.id.PokeImg);
         TextView Evol1Name = (TextView) findViewById(R.id.Evol1Name);
@@ -56,33 +61,48 @@ public class evolutions extends ActionBarActivity {
         TextView Evol3Name = (TextView) findViewById(R.id.Evol3Name);
         ImageView Evol3Img = (ImageView) findViewById(R.id.Evol3Img);
 
+        //-------------------------------------------------------------//
+
 
         try {
+
+
             res = result.getString("result");
             pokemon = new JSONObject(res);
             evol1 = pokemon.getJSONArray("evolutions").getJSONObject(0);
             String urlString = getString(R.string.api) + evol1.getString("resource_uri");
             poke_evol1 = new JSONObject(util.call(urlString));
 
-            this.setTitle(pokemon.getString("name") + " - Evolutions");
+            this.setTitle(pokemon.getString("name") + " - Evolutions"); // Definie le titre de l'activity
 
             if(evol1.getString("method").equals("level_up")){
                 string = "Level : " + evol1.getString("level");
             }else{
                 string = "Méthode : " + evol1.getString("method");
+
             }
 
+            //------------------------------------------------------------------------------------------------//
+            //                                         Afficher le pokemon                                    //
             PokeName.setText("#" + pokemon.getString("national_id") + " " +  pokemon.getString("name"));
             util.showImg(getApplicationContext(),pokemon,PokeImg);
+            //------------------------------------------------------------------------------------------------//
 
+
+
+            //------------------------------------------------------------------------------------------------//
+            //                                  Afficher la première évolution                                //
             Transition1Text.setText(string);
             Evol1Name.setText("#" + poke_evol1.getString("national_id") + " " + poke_evol1.getString("name"));
             util.showImg(getApplicationContext(),poke_evol1,Evol1Img);
+            //------------------------------------------------------------------------------------------------//
 
-            if(poke_evol1.getJSONArray("evolutions").length() != 0) {
-                poke_evol2 = util.showEvolutions(getApplicationContext(),poke_evol1,Transition2,Evol2,Transition2Text,Evol2Name,Evol2Img);
-                if(poke_evol2.getJSONArray("evolutions").length() != 0){
-                    util.showEvolutions(getApplicationContext(),poke_evol2,Transition3,Evol3,Transition3Text,Evol3Name,Evol3Img);
+
+
+            if(poke_evol1.getJSONArray("evolutions").length() != 0) { // Verifier s'il a une deuxième evolution
+                poke_evol2 = util.showEvolutions(getApplicationContext(),poke_evol1,Transition2,Evol2,Transition2Text,Evol2Name,Evol2Img); //Afficher la deuxieme evolution
+                if(poke_evol2.getJSONArray("evolutions").length() != 0){ // Verifier s'il a une troisieme evolution
+                    util.showEvolutions(getApplicationContext(),poke_evol2,Transition3,Evol3,Transition3Text,Evol3Name,Evol3Img); // Afficher la troisieme evolution
                 }
             }
 
@@ -116,16 +136,22 @@ public class evolutions extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //------------------------------------------------------//
+    //                                                      //
+    //  Evenement lorsque l'on appui sur un boutons du bas  //
+    //                                                      //
+    //------------------------------------------------------//
+
     public void showPresentation(View view){
-        util.goToActivity(res,detail_pokemon.class,getApplicationContext());
+        util.goToActivity(res,detail_pokemon.class,getApplicationContext()); //appel à l'activity du detail du pokemon
     }
 
     public void showAttacks(View view){
-        util.goToActivity(res,attaques.class,getApplicationContext());
+        util.goToActivity(res,attaques.class,getApplicationContext()); //appel à l'activity des attaques du pokemon
     }
 
     public void showDescriptions(View view){
-        util.goToActivity(res,descriptions.class,getApplicationContext());
+        util.goToActivity(res,descriptions.class,getApplicationContext()); //appel à l'activity des descriptions du pokemon
     }
 
     public void returnToList(View view){

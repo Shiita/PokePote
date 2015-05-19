@@ -27,6 +27,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+//--------------------------//
+//                          //
+//  Selection d'un pokemon  //
+//                          //
+//--------------------------//
+
 
 public class selection_pokemon extends ListActivity {
 

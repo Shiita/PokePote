@@ -14,12 +14,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by Martin on 05/05/2015.
  */
+
+
+//--------------------------------------------------------//
+//                                                        //
+//  Fonctions utilisés plusieurs dans le reste du projet  //
+//                                                        //
+//--------------------------------------------------------//
+
 public class util {
+
+    //-------------------------------------------------//
+    //                                                 //
+    //  Changer un tableau en une chaine de caractere  //
+    //                                                 //
+    //-------------------------------------------------//
 
     public static String arrayToString(JSONArray array) {
 
@@ -39,6 +57,14 @@ public class util {
         return string;
     }
 
+
+
+    //-----------------//
+    //                 //
+    //  Appel à l'api  //
+    //                 //
+    //-----------------//
+
     public static String call(String url) {
 
         String string = "";
@@ -52,12 +78,28 @@ public class util {
         return string;
     }
 
+
+
+    //--------------------------------------------//
+    //                                            //
+    //  Appel à une activity passée en parametre  //
+    //                                            //
+    //--------------------------------------------//
+
     public static void goToActivity(String string, Class classe, Context context) {
         Intent intent = new Intent(context,classe);
         intent.putExtra("result",string);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
+
+
+    //----------------------//
+    //                      //
+    //  Afficher une image  //
+    //                      //
+    //----------------------//
 
     public static void showImg(Context context,JSONObject object,ImageView container) {
         try{
@@ -73,6 +115,14 @@ public class util {
             Log.d("Exception",e.toString());
         }
     }
+
+
+    //--------------------------------------------------------//
+    //                                                        //
+    //  Afficher l'evolution d'un pokemon passé en parametre  //
+    //                                                        //
+    //--------------------------------------------------------//
+
 
     public static JSONObject showEvolutions(Context context, JSONObject object1, LinearLayout linear1, LinearLayout linear2, TextView text1, TextView text2, ImageView image){
 
@@ -97,5 +147,21 @@ public class util {
             Log.e("Exception",e.toString());
         }
         return object3;
+    }
+
+    //------------------------------------------------//
+    //                                                //
+    //  Converti le résultat d'une requête en string  //
+    //                                                //
+    //------------------------------------------------//
+
+    public static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+        inputStream.close();
+        return result;
     }
 }
