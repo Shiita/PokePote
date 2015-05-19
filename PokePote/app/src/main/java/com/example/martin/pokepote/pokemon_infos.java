@@ -1,13 +1,18 @@
 package com.example.martin.pokepote;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 /**
@@ -67,11 +72,252 @@ public class pokemon_infos extends Fragment {
         // Inflate the layout for this fragment
 
         View MyView = inflater.inflate(R.layout.fragment_pokemon_infos, container, false);
-
-        ((TextView)MyView.findViewById(R.id.Attribut)).setText(attribut);
-        ((TextView)MyView.findViewById(R.id.Valeur)).setText(valeur);
-
+        TextView Attr = (TextView) MyView.findViewById(R.id.Attribut);
+        TextView Val = (TextView)MyView.findViewById(R.id.Valeur);
+        Val.setText(valeur);
+        Attr.setText(attribut);
+        defineColor(attribut,valeur,Attr, Val);
         return MyView;
+    }
+
+    public void defineColor(String attribut,String valeur, TextView attr, TextView value){
+
+        switch (attribut.toUpperCase()) {
+            case "STEEL" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#aaaabb"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "GHOST" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#5454a8"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "ROCK" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#baa965"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "GROUND" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#ddbb55"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "POISON" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#773366"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "PSYCHIC" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#ff5599"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "FAIRY" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#ffaaff"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "GRASS" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#77cc55"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "DRAGON" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#453479"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "BUG" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#aabb22"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "FLYING" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#6699ff"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "FIGHTING" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#ba5543"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "ICE" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#78deff"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "FIRE" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#ff4422"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "WATER" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#3399ff"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "ELECTRIC" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#ffcc33"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "NORMAL" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#bbbbaa"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+            case "DARK" : {
+                if(!valeur.equals("")) {
+                    attr.setBackgroundColor(Color.parseColor("#453434"));
+                    attr.setTextColor(Color.parseColor("#ffffff"));
+                    attr.setGravity(Gravity.CENTER);
+                    value.setGravity(Gravity.CENTER);
+                    if(Float.valueOf(valeur) < 1){
+                        value.setTextColor(Color.GREEN);
+                    }else if(Float.valueOf(valeur)>1){
+                        value.setTextColor(Color.RED);
+                    }
+                }
+            }break;
+        }
     }
 
     public void onButtonPressed(Uri uri) {
