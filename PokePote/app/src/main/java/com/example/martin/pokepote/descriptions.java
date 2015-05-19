@@ -23,7 +23,7 @@ import java.util.List;
 
 //---------------------------------------------------------------//
 //                                                               //
-//  Activity présentant la liste des descriptions d'un pokemon.  //
+//  Activity prï¿½sentant la liste des descriptions d'un pokemon.  //
 //                                                               //
 //---------------------------------------------------------------//
 
@@ -61,7 +61,7 @@ public class descriptions extends ListActivity {
         try {
 
             //--------------------------------------------------//
-            //     Récupération des descriptions du pokemon     //
+            //     Rï¿½cupï¿½ration des descriptions du pokemon     //
 
             res = result.getString("result");
             pokemon = new JSONObject(res);
@@ -73,7 +73,7 @@ public class descriptions extends ListActivity {
 
             //-----------------------------------------------------------------------------------------//
             //          Verification de l'existence d'une ou plusieurs evolutions du pokemon           //
-            //  Si ce n'est pas le cas le bouton évolutions est rendu indisponible pour l'utilisateur  //
+            //  Si ce n'est pas le cas le bouton ï¿½volutions est rendu indisponible pour l'utilisateur  //
 
             if(pokemon.getJSONArray("evolutions").length() == 0){
                 evolButton.setEnabled(false);
@@ -94,7 +94,7 @@ public class descriptions extends ListActivity {
 
 
             //----------------------------------------------------------------------------------------------------------------//
-            //                         Ajout des descriptions à la liste de descriptions du pokemon                           //
+            //                         Ajout des descriptions ï¿½ la liste de descriptions du pokemon                           //
 
             for(int i=0;i<descriptions.length();i++){
                 String urlString = getString(R.string.api) + descriptions.getJSONObject(i).getString("resource_uri");
@@ -123,8 +123,8 @@ public class descriptions extends ListActivity {
         }
 
         //--------------------------------------------------------------------------//
-        //           Assignement d'un description_adapter à la liste                //
-        //  Définie les propriétés d'affichage à liste des descriptions du pokemon  //
+        //           Assignement d'un description_adapter ï¿½ la liste                //
+        //  Dï¿½finie les propriï¿½tï¿½s d'affichage ï¿½ liste des descriptions du pokemon  //
 
         description_adapter adapter = new description_adapter(this, list);
         setListAdapter(adapter);
@@ -165,15 +165,15 @@ public class descriptions extends ListActivity {
 
 
     public void showPresentation(View view){
-        util.goToActivity(res,detail_pokemon.class,getApplicationContext()); //appel à l'activity du detail du pokemon
+        util.goToActivity(res,detail_pokemon.class,getApplicationContext()); //appel ï¿½ l'activity du detail du pokemon
     }
 
     public void showAttacks(View view){
-        util.goToActivity(res,attaques.class,getApplicationContext()); //appel à l'activity des attaques du pokemon
+        util.goToActivity(res,attaques.class,getApplicationContext()); //appel ï¿½ l'activity des attaques du pokemon
     }
 
     public void showEvolutions(View view){
-        util.goToActivity(res,evolutions.class,getApplicationContext()); //appel à l'activity des evolutions du pokemon
+        util.goToActivity(res,evolutions.class,getApplicationContext()); //appel ï¿½ l'activity des evolutions du pokemon
     }
 
     public void returnToList(View view){
