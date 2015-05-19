@@ -110,25 +110,22 @@ public class DownloadImageTask {
                     // Get the directory for the app's private pictures directory.
                     File path = new File(c.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "iconDex");
                     File image = new File(path.getPath() + "/a" + urldisplay.substring(urldisplay.lastIndexOf("/") + 1));
-                    if (!path.mkdirs()) {
-                    }
-                    else {
-                        FileOutputStream out = null;
+                    path.mkdirs();
+                    FileOutputStream out = null;
+                    try {
+                        out = new FileOutputStream(image);
+
+                        System.out.println(path.getPath() + "/a" + urldisplay.substring(urldisplay.lastIndexOf("/") + 1));
+
+                        mIcon11.compress(Bitmap.CompressFormat.PNG, 100, out);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
                         try {
-                            out = new FileOutputStream(image);
-
-                            System.out.println(path.getPath() + "/a" + urldisplay.substring(urldisplay.lastIndexOf("/") + 1));
-
-                            mIcon11.compress(Bitmap.CompressFormat.PNG, 100, out);
-
+                            out.close();
                         } catch (Exception e) {
                             e.printStackTrace();
-                        } finally {
-                            try {
-                                out.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
                         }
                     }
                 }
