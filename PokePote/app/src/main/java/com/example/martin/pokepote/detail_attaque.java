@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -106,5 +107,11 @@ public class detail_attaque extends ActionBarActivity implements pokemon_infos.O
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public void returnToList(View view){
+        String urlString = getString(R.string.api_url) + "pokedex/1"; //url à appeler pour récupérer tous les pokemon
+        String result = util.call(urlString);
+        util.goToActivity(result,selection_pokemon.class,getApplicationContext());
     }
 }

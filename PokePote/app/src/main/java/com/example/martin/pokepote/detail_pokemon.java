@@ -324,5 +324,11 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
         util.goToActivity(res,descriptions.class,getApplicationContext()); //appel � l'activity des descriptions du pokemon
     }
 
+    public void returnToList(View view){
+        String urlString = getString(R.string.api_url) + "pokedex/1"; //url à appeler pour récupérer tous les pokemon
+        String result = util.call(urlString);
+        util.goToActivity(result,selection_pokemon.class,getApplicationContext());
+    }
+
 }
 
