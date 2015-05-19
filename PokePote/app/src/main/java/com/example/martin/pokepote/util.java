@@ -105,10 +105,13 @@ public class util {
         try{
             File path = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "iconDex");
             String url_img = context.getString(R.string.api_media) + object.getString("national_id");
-            File image = new File(path.getPath() + "/a" + url_img.substring(url_img.lastIndexOf("/") + 1));
+            File image = new File(path.getPath() + "/a" + object.getString("national_id") + ".png");
+
             if (!image.exists()) {
                 new DownloadImageTask(container,url_img,context);
-            }else{
+            }
+            else{
+                System.out.println("prout\n\nlaiyervfgilyearvgliyzervilvyu");
                 container.setImageBitmap(BitmapFactory.decodeFile(image.getCanonicalPath()));
             }
         }catch(Exception e){
