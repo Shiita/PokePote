@@ -138,4 +138,10 @@ public class attaques extends ListActivity {
         util.goToActivity(res,descriptions.class,getApplicationContext());
     }
 
+    public void returnToList(View view){
+        String urlString = getString(R.string.api_url) + "pokedex/1"; //url à appeler pour récupérer tous les pokemon
+        String result = util.call(urlString);
+        util.goToActivity(result,selection_pokemon.class,getApplicationContext());
+    }
+
 }
