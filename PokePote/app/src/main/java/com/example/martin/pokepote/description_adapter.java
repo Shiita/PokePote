@@ -74,7 +74,7 @@ public class description_adapter extends BaseAdapter {
         }
 
         //Renseignement des valeurs
-        viewHolder.generation.setText("Generation " + mListP.get(position).generation);
+        viewHolder.generation.setText("Version " + mListP.get(position).version);
         viewHolder.description.setText(mListP.get(position).description);
         return layoutItem;
     }

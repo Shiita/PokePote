@@ -34,6 +34,7 @@ public class descriptions extends ListActivity {
     public JSONObject pokemon;
     public JSONArray descriptions;
     public JSONObject description;
+    public String version;
     public List<Description> list = new ArrayList<Description>();
 
     //-------------------------------------------------------//
@@ -99,7 +100,8 @@ public class descriptions extends ListActivity {
             for(int i=0;i<descriptions.length();i++){
                 String urlString = getString(R.string.api) + descriptions.getJSONObject(i).getString("resource_uri");
                 description = new JSONObject(util.call(urlString));
-                list.add(new Description(description.getString("name").split("_")[2],description.getString("description")));
+                version = description.getJSONArray("games").getJSONObject(0).getString("name");
+                list.add(new Description(description.getString("name").split("_")[2],description.getString("description"),version));
             }
 
             //----------------------------------------------------------------------------------------------------------------//

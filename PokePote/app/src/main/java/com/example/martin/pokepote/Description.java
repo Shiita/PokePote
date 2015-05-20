@@ -13,14 +13,16 @@ package com.example.martin.pokepote;
 public class Description {
     public String generation;
     public String description;
+    public String version;
 
 
     //-----------------------------//
     //  Constructeur de la classe  //
     //-----------------------------//
-    public Description(String generation, String description) {
+    public Description(String generation, String description, String version) {
         this.generation = generation;
         this.description = description;
+        this.version = version;
     }
 
     //-----------------------//
