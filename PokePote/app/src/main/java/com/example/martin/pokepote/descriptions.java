@@ -24,7 +24,7 @@ import java.util.List;
 //---------------------------------------------------------------//
 //                                                               //
 //  Activity presentant la liste des descriptions d'un pokemon.  //
-//                                                               //
+
 //---------------------------------------------------------------//
 
 
@@ -64,6 +64,7 @@ public class descriptions extends ListActivity {
             //--------------------------------------------------//
             //     Recuperation des descriptions du pokemon     //
 
+
             res = result.getString("result");
             pokemon = new JSONObject(res);
             descriptions = pokemon.getJSONArray("descriptions");
@@ -75,6 +76,7 @@ public class descriptions extends ListActivity {
             //-----------------------------------------------------------------------------------------//
             //          Verification de l'existence d'une ou plusieurs evolutions du pokemon           //
             //  Si ce n'est pas le cas le bouton evolutions est rendu indisponible pour l'utilisateur  //
+
 
             if(pokemon.getJSONArray("evolutions").length() == 0){
                 evolButton.setEnabled(false);
@@ -96,6 +98,7 @@ public class descriptions extends ListActivity {
 
             //----------------------------------------------------------------------------------------------------------------//
             //                         Ajout des descriptions a la liste de descriptions du pokemon                           //
+
 
             for(int i=0;i<descriptions.length();i++){
                 String urlString = getString(R.string.api) + descriptions.getJSONObject(i).getString("resource_uri");
