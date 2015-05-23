@@ -9,12 +9,15 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,6 +44,9 @@ public class selection_pokemon extends ListActivity {
 
     public ArrayList<Pokemon> listP = new ArrayList<Pokemon>();
 
+    public EditText search;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,7 @@ public class selection_pokemon extends ListActivity {
         //-------------------------------------------------
         Intent intent = getIntent();
         Bundle result = intent.getExtras();
+        search = (EditText) findViewById(R.id.editText);
         //------------------------------------------------
         //Recupere tous les pokemons
 
@@ -82,8 +89,50 @@ public class selection_pokemon extends ListActivity {
         pokemon_adapter adapter = new pokemon_adapter(this, listP);//Permet de définir comment afficher la liste
         //Initialisation de la liste avec les données
         setListAdapter(adapter);//Utilisationde l'adapter definit précédemment et affiche la liste
+
+        search.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                      int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                filtrer();
+            }
+        });
     }
 
+
+    public void filtrer() {
+        // retourner la chaine saisie par l'utilisateur
+        String name = search.getText().toString();
+        // créer une nouvelle liste qui va contenir la résultat à afficher
+        ArrayList listPNew = new ArrayList();
+
+        for (Pokemon pokemon : listP) {
+            // si le nom du food commence par la chaine saisie , ajouter-le !
+            if (pokemon.nom.toLowerCase().toString().contains(name.toLowerCase()) || pokemon.numero.startsWith(name)) {
+                listPNew.add(pokemon);
+            }
+        }
+        //vider la liste
+        setListAdapter(null);
+        pokemon_adapter adapter = new pokemon_adapter(this, listP);//Permet de définir comment afficher la liste
+        //Initialisation de la liste avec les données
+        setListAdapter(adapter);//Utilisation de l'adapter definit précédemment et affiche la liste
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
