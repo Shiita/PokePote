@@ -123,13 +123,13 @@ public class selection_pokemon extends ListActivity {
 
         for (Pokemon pokemon : listP) {
             // si le nom du food commence par la chaine saisie , ajouter-le !
-            if (pokemon.nom.toLowerCase().toString().contains(name.toLowerCase()) || pokemon.numero.startsWith(name)) {
+            if (pokemon.nom.toLowerCase().toString().startsWith(name.toLowerCase()) || pokemon.numero.startsWith(name)) {
                 listPNew.add(pokemon);
             }
         }
         //vider la liste
         setListAdapter(null);
-        pokemon_adapter adapter = new pokemon_adapter(this, listP);//Permet de définir comment afficher la liste
+        pokemon_adapter adapter = new pokemon_adapter(this, listPNew);//Permet de définir comment afficher la liste
         //Initialisation de la liste avec les données
         setListAdapter(adapter);//Utilisation de l'adapter definit précédemment et affiche la liste
     }
