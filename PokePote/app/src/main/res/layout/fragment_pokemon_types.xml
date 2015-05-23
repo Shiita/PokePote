@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.martin.pokepote.pokemon_types">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        android:layout_weight="1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="15dp"
+        android:id="@+id/Type"
+        android:gravity="center"
+        />
+
+</FrameLayout>

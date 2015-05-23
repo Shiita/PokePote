@@ -73,8 +73,9 @@ public class description_adapter extends BaseAdapter {
             viewHolder = (ViewHolder) layoutItem.getTag();
         }
 
+        String version = mListP.get(position).version.toUpperCase();
         //Renseignement des valeurs
-        viewHolder.generation.setText("Version " + mListP.get(position).version);
+        viewHolder.generation.setText(version + " VERSION");
         viewHolder.description.setText(mListP.get(position).description);
         return layoutItem;
     }

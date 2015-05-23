@@ -49,7 +49,7 @@ public class detail_attaque extends ActionBarActivity implements pokemon_infos.O
         try {
 
             //-----------------------------------//
-            //     Récupération de l'attaque     //
+            //     Recuperation de l'attaque     //
 
             res = result.getString("result");
             attaque = new JSONObject(res);
@@ -61,7 +61,7 @@ public class detail_attaque extends ActionBarActivity implements pokemon_infos.O
 
             //----------------------------------------------------------------------------------------------//
             //                         Affichage des informations de l'attaque                              //
-            //  Utilisation d'un fragment atkDatas pour recuperer les informations générales sur l'attaque  //
+            //  Utilisation d'un fragment atkDatas pour recuperer les informations generales sur l'attaque  //
 
             AtkName.setText("#" + attaque.getString("id") + " " +  attaque.getString("name")); // Affichage du numero + nom de l'attaque
             AtkDes.setText(attaque.getString("description")); // Affichage de la description de l'attaque
