@@ -1,9 +1,15 @@
 package com.example.martin.pokepote;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 //------------------------------------------------------------//
 //                                                            //
@@ -16,10 +22,20 @@ public class accueil extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WifiManager WM = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
         this.setTitle("Accueil");
-        getPokeInfos();
+
+        //si connexion wifi, affichage de la liste des pokémons ; sinon affichage d'un message
+        if(netCheckin()) {
+        //if(WM.) {
+            getPokeInfos();
+        }else{
+            Toast.makeText(getApplicationContext(), "Connexion failed", Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -58,4 +74,34 @@ public class accueil extends ActionBarActivity {
             String result = util.call(urlString); //appel à l'api
             util.goToActivity(result,selection_pokemon.class,getApplicationContext()); //appel à l'activity de la sélection du pokemon
    }
+
+    //------------------------------------------------------------------------------------------//
+    //                                                                                          //
+    //  Check data connexion                                                                    //
+    //                                                                                          //
+    //------------------------------------------------------------------------------------------//
+
+    private boolean netCheckin() {
+        try {
+            ConnectivityManager nInfo = (ConnectivityManager) getSystemService(
+                    Context.CONNECTIVITY_SERVICE);
+            nInfo.getActiveNetworkInfo().isConnectedOrConnecting();
+
+            Log.d("accueil.java ", "Net avail:"
+                    + nInfo.getActiveNetworkInfo().isConnectedOrConnecting());
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(
+                    Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                Log.d("accueil.java ", "Network available:true");
+                return true;
+            } else {
+                Log.d("accueil.java ", "Network available:false");
+                return false;
+            }
+        } catch (Exception e) {
+            Log.d("accueil.java ", "Run exception : " + e);
+            return false;
+        }
+    }
 }
