@@ -6,23 +6,30 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.martin.pokepote.selection_pokemon">
 
-    <EditText
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:ems="10"
-        android:hint="Search a pokemon ..." />
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@android:id/list"
-        android:layout_alignParentTop="true"
-        android:smoothScrollbar="true"
-        android:scrollingCache="false"
-        android:animationCache="false"
-        android:paddingTop="30dp" />
-
-
+        android:id="@+id/Search">
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:ems="10"
+            android:hint="Search a pokemon ..." />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Search">
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@android:id/list"
+            android:layout_alignParentTop="true"
+            android:smoothScrollbar="true"
+            android:scrollingCache="false"
+            android:animationCache="false"/>
+    </LinearLayout>
 </RelativeLayout>
 
 
