@@ -36,13 +36,15 @@ public class bdd_DAO {
     }
 
     //Set l'attribut favori du pkm
-    public long setFavori(String id, Integer fav){
+    public long setFavori(String id, Boolean fav){
+        Integer valeur ;
+        if (fav) valeur = 1; else valeur= 0;
 
         PKM_BDD pkm = getPkm(Long.parseLong(id));
 
         ContentValues valeurs = new ContentValues();
         valeurs.put("id", Long.parseLong(id));
-        valeurs.put("favori", fav);
+        valeurs.put("favori", valeur);
 
         if(pkm == null) {
            //Creer un nouvel enregistrement
@@ -56,13 +58,17 @@ public class bdd_DAO {
     }
 
     //Set l'attribut equipe du pkm
-    public long setEquipe(String id, Integer eq){
+    public long setEquipe(String id, Boolean eq){
+
+        Integer valeur ;
+        if (eq) valeur = 1; else valeur= 0;
+
 
         PKM_BDD pkm = getPkm(Long.parseLong(id));
 
         ContentValues valeurs = new ContentValues();
         valeurs.put("id", Long.parseLong(id));
-        valeurs.put("equipe", eq);
+        valeurs.put("equipe", valeur);
 
         if(pkm == null) {
             //Creer un nouvel enregistrement

@@ -78,6 +78,15 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
     private ImageButton btnImg_Eq ;
     private ImageButton btnImg_Fav;
 
+    //Savoir si le pkm est dans les favoris ou pas
+    boolean estFav;
+    boolean estEquipe;
+
+    //Objet BDD
+    bdd_DAO bdd;
+
+    String idPKM ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +107,9 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
         btnImg_Eq = (ImageButton)findViewById(R.id.btnimg_Equipe);
         btnImg_Fav = (ImageButton)findViewById(R.id.btnimg_Fav);
 
+
+
+
         //-------------------------------------------------------------//
 
 
@@ -115,6 +127,7 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
             evols = pokemon.getJSONArray("evolutions");
             poids = pokemon.getInt("weight") * 0.1;
             taille = pokemon.getInt("height") * 0.1;
+            idPKM = pokemon.getString("national_id");
 
             //-------------------------------------------------------------------//
 
@@ -142,6 +155,24 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
 
             //-----------------------------------------------------------------------------------------//
 
+            //----------------------------------------------------------------------------------------------//
+            //                           Affichage du bouton des favoris                                    //
+
+            //get dans la bdd
+
+            bdd = new bdd_DAO();
+            estEquipe = bdd.getEquipe(idPKM) == 1;
+            estFav = bdd.getFavori(idPKM) == 1;
+
+            if(estEquipe)
+                btnImg_Eq.setBackground(this.getResources().getDrawable(R.drawable.pokeball_color));
+            else
+                btnImg_Eq.setBackground(this.getResources().getDrawable(R.drawable.pokeball_grey));
+
+            if(estFav)
+                btnImg_Fav.setBackground(this.getResources().getDrawable(R.drawable.star_gold_64));
+            else
+                btnImg_Fav.setBackground(this.getResources().getDrawable(R.drawable.star_grey_64));
 
 
             //----------------------------------------------------------------------------------------------//
@@ -341,20 +372,29 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
     //                                                      //
     //------------------------------------------------------//
 
-    public void clickOnStar(){
+    public void clickOnStar(View view){
         //update bdd
-
+        bdd.setFavori(idPKM, !estFav);
+        estFav = !estFav;
 
         //change la couleur
-        btnImg_Fav.setBackground(this.getResources().getDrawable(R.drawable.star_gold_64));
+        if(estFav)
+            btnImg_Fav.setBackground(this.getResources().getDrawable(R.drawable.star_gold_64));
+        else
+            btnImg_Fav.setBackground(this.getResources().getDrawable(R.drawable.star_grey_64));
     }
 
-    public void clickOnPokeball(){
-        //update bdd
-
+    public void clickOnPokeball(View view){
+        //update bdd & local
+        bdd.setEquipe(idPKM, !estEquipe);
+        estEquipe = !estEquipe;
 
         //change la couleur
-        btnImg_Eq.setBackground(this.getResources().getDrawable(R.drawable.pokeball_color));
+        if(estEquipe)
+            btnImg_Eq.setBackground(this.getResources().getDrawable(R.drawable.pokeball_color));
+        else
+            btnImg_Eq.setBackground(this.getResources().getDrawable(R.drawable.pokeball_grey));
+
     }
 
 
