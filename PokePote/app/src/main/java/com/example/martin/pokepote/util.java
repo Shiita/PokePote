@@ -135,7 +135,7 @@ public class util {
                 JSONObject object2 = object1.getJSONArray("evolutions").getJSONObject(0);
                 String urlString = context.getString(R.string.api) + object2.getString("resource_uri");
                 object3 = new JSONObject(util.call(urlString));
-                if(object3.getInt("national_id")>1000) {
+                if(object3.getInt("national_id")<1000) {
                     linear1.setVisibility(View.VISIBLE);
                     linear2.setVisibility(View.VISIBLE);
                     String string = "";
