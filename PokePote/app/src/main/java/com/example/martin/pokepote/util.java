@@ -135,19 +135,21 @@ public class util {
                 JSONObject object2 = object1.getJSONArray("evolutions").getJSONObject(0);
                 String urlString = context.getString(R.string.api) + object2.getString("resource_uri");
                 object3 = new JSONObject(util.call(urlString));
-                linear1.setVisibility(View.VISIBLE);
-                linear2.setVisibility(View.VISIBLE);
-                String string = "";
-                if (object2.getString("method").equals("level_up")) {
-                    string = "Level : " + object2.getString("level");
-                } else {
-                    string = "Méthode : " + object2.getString("method");
+                if(object3.getInt("national_id")>1000) {
+                    linear1.setVisibility(View.VISIBLE);
+                    linear2.setVisibility(View.VISIBLE);
+                    String string = "";
+                    if (object2.getString("method").equals("level_up")) {
+                        string = "Level : " + object2.getString("level");
+                    } else {
+                        string = "Méthode : " + object2.getString("method");
+                    }
+                    text1.setText(string);
+                    text2.setText("#" + object3.getString("national_id") + " " + object3.getString("name"));
+                    showImg(context, object3, image);
                 }
-                text1.setText(string);
-                text2.setText("#" + object3.getString("national_id") + " " + object3.getString("name"));
-                showImg(context, object3, image);
         }catch (Exception e){
-            Log.e("Exception",e.toString());
+            Log.e("Exception", e.toString());
         }
         return object3;
     }
