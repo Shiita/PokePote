@@ -88,8 +88,6 @@ public class evolutions extends ActionBarActivity {
             util.showImg(getApplicationContext(),pokemon,PokeImg);
             //------------------------------------------------------------------------------------------------//
 
-
-
             //------------------------------------------------------------------------------------------------//
             //                                  Afficher la première évolution                                //
             Transition1Text.setText(string);
@@ -97,14 +95,13 @@ public class evolutions extends ActionBarActivity {
             util.showImg(getApplicationContext(),poke_evol1,Evol1Img);
             //------------------------------------------------------------------------------------------------//
 
-
-
+            //------------------------------------------------------------------------------------------------//
+            //                                  Afficher la deuxième évolution                                //
             if(poke_evol1.getJSONArray("evolutions").length() != 0) { // Verifier s'il a une deuxième evolution
-                poke_evol2 = util.showEvolutions(getApplicationContext(),poke_evol1,Transition2,Evol2,Transition2Text,Evol2Name,Evol2Img); //Afficher la deuxieme evolution
-                if(poke_evol2.getJSONArray("evolutions").length() != 0){ // Verifier s'il a une troisieme evolution
-                    util.showEvolutions(getApplicationContext(),poke_evol2,Transition3,Evol3,Transition3Text,Evol3Name,Evol3Img); // Afficher la troisieme evolution
-                }
+                util.showEvolutions(getApplicationContext(),poke_evol1,Transition2,Evol2,Transition2Text,Evol2Name,Evol2Img); //Afficher la deuxieme evolutio
             }
+            //------------------------------------------------------------------------------------------------//
+
 
         }catch(Exception e){
             Log.d("Exception", e.toString());

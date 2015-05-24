@@ -130,6 +130,14 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
                 evolButton.setEnabled(false);
                 evolButton.setBackgroundColor(Color.parseColor("#4C5F041E"));
                 evolButton.setTextColor(Color.parseColor("#ff3b0416"));
+            }else{
+                String url_string = getString(R.string.api) + pokemon.getJSONArray("evolutions").getJSONObject(0).getString("resource_uri");
+                JSONObject evolution = new JSONObject(util.call(url_string));
+                if(evolution.getInt("national_id")>1000){
+                    evolButton.setEnabled(false);
+                    evolButton.setBackgroundColor(Color.parseColor("#4C5F041E"));
+                    evolButton.setTextColor(Color.parseColor("#ff3b0416"));
+                }
             }
 
             //-----------------------------------------------------------------------------------------//
