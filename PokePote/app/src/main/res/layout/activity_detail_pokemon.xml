@@ -32,8 +32,31 @@
                     android:textSize="10dp"
                     android:textColor="#ffffffff"
                     android:background="#ff3b0416"/>
-
             </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:padding="10dp">
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/btnimg_Equipe"
+                    android:layout_gravity="right"
+                    android:onClick="clickOnPokeball"
+                    android:background="@drawable/pokeball_grey"/>
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/btnimg_Fav"
+                    android:layout_gravity="right"
+                    android:onClick="clickOnStar"
+                    android:background="@drawable/star_grey_64"/>
+            </LinearLayout>
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"

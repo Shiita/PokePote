@@ -6,7 +6,10 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -17,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,6 +75,8 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
     public float normal;
     public float dark;
 
+    private ImageButton btnImg_Eq ;
+    private ImageButton btnImg_Fav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +93,10 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
         ImageView PokeImg = (ImageView) findViewById(R.id.PokeImg);
         Button evolButton = (Button) findViewById(R.id.btnEvols);
         TextView PokeDes = (TextView) findViewById(R.id.PokeDes);
+
+        /***regarder si le favori est enregistré ou pas***/
+        btnImg_Eq = (ImageButton)findViewById(R.id.btnimg_Equipe);
+        btnImg_Fav = (ImageButton)findViewById(R.id.btnimg_Fav);
 
         //-------------------------------------------------------------//
 
@@ -295,7 +305,7 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
 
     //------------------------------------------------------//
     //                                                      //
-    //  Evenement lorsque l'on appui sur un boutons du bas  //
+    //  Evenement lorsque l'on appuie sur un boutons du bas //
     //                                                      //
     //------------------------------------------------------//
 
@@ -316,6 +326,30 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
         String result = util.call(urlString);
         util.goToActivity(result,selection_pokemon.class,getApplicationContext());
     }
+
+    //------------------------------------------------------//
+    //                                                      //
+    //  Evenement lorsque l'on appuie sur un bouton perso   //
+    //                                                      //
+    //------------------------------------------------------//
+
+    public void clickOnStar(){
+        //update bdd
+
+
+        //change la couleur
+        btnImg_Fav.setBackground(this.getResources().getDrawable(R.drawable.star_gold_64));
+    }
+
+    public void clickOnPokeball(){
+        //update bdd
+
+
+        //change la couleur
+        btnImg_Eq.setBackground(this.getResources().getDrawable(R.drawable.pokeball_color));
+    }
+
+
 
 }
 

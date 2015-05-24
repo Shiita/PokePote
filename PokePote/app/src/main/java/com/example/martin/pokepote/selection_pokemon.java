@@ -64,7 +64,7 @@ public class selection_pokemon extends ListActivity {
             pokedex = new JSONObject(result.getString("result"));//transforme le resultat de la requête en json
             pokemons = pokedex.getJSONArray("pokemon");//recupere les pokemons dans un tableau d'objets
 
-            //remplissage de la liste de façon ordonné
+            //remplissage de la liste de façon ordonnée
             for (int i = 0; i < pokemons.length(); i++) {
                 JSONObject pokemon = pokemons.getJSONObject(i);
                 String numero = pokemon.getString("resource_uri").split("/")[3];//recupere le nummero du pokemon

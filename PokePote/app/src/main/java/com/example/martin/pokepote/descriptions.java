@@ -164,7 +164,7 @@ public class descriptions extends ListActivity {
 
     //------------------------------------------------------//
     //                                                      //
-    //  Evenement lorsque l'on appui sur un boutons du bas  //
+    //  Evenement lorsque l'on appui sur un bouton du bas  //
     //                                                      //
     //------------------------------------------------------//
 
@@ -182,7 +182,7 @@ public class descriptions extends ListActivity {
     }
 
     public void returnToList(View view){
-        String urlString = getString(R.string.api_url) + "pokedex/1"; //url a  appeler pour recuperer tous les pokemon
+        String urlString = getString(R.string.api_url) + "pokedex/1"; //url aï¿½ appeler pour recuperer tous les pokemon
         String result = util.call(urlString);
         util.goToActivity(result,selection_pokemon.class,getApplicationContext());
     }

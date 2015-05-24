@@ -1,9 +1,13 @@
 package com.example.martin.pokepote;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +38,34 @@ public class accueil extends ActionBarActivity {
         //if(WM.) {
             getPokeInfos();
         }else{
-            Toast.makeText(getApplicationContext(), "Connexion failed", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Connexion failed", Toast.LENGTH_LONG).show();
+            new AlertDialog.Builder(this)
+                    .setTitle("Warning")
+                    .setMessage("Wifi network is disabled, please enabled it.")
+                    .setCancelable(false)
+                    .setPositiveButton("Enable Wifi", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+
+                            finish();
+                        }
+                    })
+                    .setNeutralButton("Enable Data", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent i = new Intent(Intent.ACTION_MAIN);
+                            i.addCategory(Intent.CATEGORY_HOME);
+                            startActivity(i);
+                            finish();
+                        }
+                    })
+                    .show();
         }
     }
 
