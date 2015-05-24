@@ -29,77 +29,94 @@ public class bdd_DAO {
     //ajouter un pokemon dans la BDD
     public long addPkm(String id) {
         ContentValues valeurs = new ContentValues();
-        valeurs.put("id", Long.parseLong(id));
+        valeurs.put("id", Integer.parseInt(id));
         valeurs.put("favori", 0);
         valeurs.put("equipe", 0);
         return bd.insert("pkm", null, valeurs);
     }
 
     //Set l'attribut favori du pkm
-    public long setFavori(String id, Boolean fav){
+    public Long setFavori(String id, Boolean fav, Context appliCtxt){
+
+        Long valRet ;
+
         Integer valeur ;
         if (fav) valeur = 1; else valeur= 0;
 
-        PKM_BDD pkm = getPkm(Long.parseLong(id));
+        PKM_BDD pkm = getPkm(Integer.parseInt(id), appliCtxt);
 
+        openConnection(appliCtxt);
         ContentValues valeurs = new ContentValues();
-        valeurs.put("id", Long.parseLong(id));
+        valeurs.put("id", Integer.parseInt(id));
         valeurs.put("favori", valeur);
 
         if(pkm == null) {
            //Creer un nouvel enregistrement
             valeurs.put("equipe", 0);
-            return bd.insert("pkm", null, valeurs);
+            valRet = bd.insert("pkm", null, valeurs);
         }else{
             //modifier le favori du pkm concerne
             valeurs.put("equipe", pkm.equipe);
-            return bd.update("pkm", valeurs, "id = " +id, null );
+            valRet = new Long(bd.update("pkm", valeurs, "id = " +id, null ));
         }
+
+        closeConnection();
+        return valRet;
     }
 
     //Set l'attribut equipe du pkm
-    public long setEquipe(String id, Boolean eq){
+    public Long setEquipe(String id, Boolean eq, Context appliCtxt){
 
+        Long valRet ;
         Integer valeur ;
         if (eq) valeur = 1; else valeur= 0;
 
 
-        PKM_BDD pkm = getPkm(Long.parseLong(id));
+        PKM_BDD pkm = getPkm(Integer.parseInt(id), appliCtxt);
 
+        openConnection(appliCtxt);
         ContentValues valeurs = new ContentValues();
-        valeurs.put("id", Long.parseLong(id));
+        valeurs.put("id", Integer.parseInt(id));
         valeurs.put("equipe", valeur);
 
         if(pkm == null) {
             //Creer un nouvel enregistrement
             valeurs.put("favori", 0);
-            return bd.insert("pkm", null, valeurs);
+            valRet = bd.insert("pkm", null, valeurs);
         }else{
             //modifier l'equipe du pkm concerne
             valeurs.put("favori", pkm.favori);
-            return bd.update("pkm", valeurs, "id = " +id, null );
+            valRet = new Long(bd.update("pkm", valeurs, "id = " +id, null ));
         }
+        closeConnection();
+        return valRet;
     }
 
     //get favori et equipe du pkm
-    public Integer getFavori(String id){
-        PKM_BDD pkm = getPkm(Long.parseLong(id));
-        return pkm.favori;
+    public Integer getFavori(String id, Context appliCtxt){
+        PKM_BDD pkm = getPkm(Integer.parseInt(id), appliCtxt);
+        if(pkm != null)
+            return pkm.favori;
+        else return 0;
     }
 
-    public Integer getEquipe(String id){
-        PKM_BDD pkm = getPkm(Long.parseLong(id));
-        return pkm.equipe;
+    public Integer getEquipe(String id, Context appliCtxt){
+        PKM_BDD pkm = getPkm(Integer.parseInt(id), appliCtxt);
+        if (pkm != null)
+            return pkm.equipe;
+        else return 0;
     }
 
-    public PKM_BDD getPkm(Long id) {
+    public PKM_BDD getPkm(Integer id, Context appliCtxt) {
+        openConnection(appliCtxt);
         String[] colonnes = {"id", "favori", "equipe"};
         Cursor curseur = bd.query("pkm", colonnes, "id = "+id, null,  null, null, "id") ;
         if (curseur.getCount()==0)
             return null;
         curseur.moveToFirst();
-        PKM_BDD pkm = new PKM_BDD(curseur.getLong(0), curseur.getInt(1), curseur.getInt(2));
+        PKM_BDD pkm = new PKM_BDD(curseur.getInt(0), curseur.getInt(1), curseur.getInt(2));
         curseur.close();
+        closeConnection();
         return pkm;
     }
 

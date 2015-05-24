@@ -161,8 +161,8 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
             //get dans la bdd
 
             bdd = new bdd_DAO();
-            estEquipe = bdd.getEquipe(idPKM) == 1;
-            estFav = bdd.getFavori(idPKM) == 1;
+            estEquipe = bdd.getEquipe(idPKM, getApplicationContext()) == 1;
+            estFav = bdd.getFavori(idPKM, getApplicationContext()) == 1;
 
             if(estEquipe)
                 btnImg_Eq.setBackground(this.getResources().getDrawable(R.drawable.pokeball_color));
@@ -374,7 +374,7 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
 
     public void clickOnStar(View view){
         //update bdd
-        bdd.setFavori(idPKM, !estFav);
+        bdd.setFavori(idPKM, !estFav, getApplicationContext());
         estFav = !estFav;
 
         //change la couleur
@@ -386,7 +386,7 @@ public class detail_pokemon extends ActionBarActivity implements pokemon_infos.O
 
     public void clickOnPokeball(View view){
         //update bdd & local
-        bdd.setEquipe(idPKM, !estEquipe);
+        bdd.setEquipe(idPKM, !estEquipe, getApplicationContext());
         estEquipe = !estEquipe;
 
         //change la couleur

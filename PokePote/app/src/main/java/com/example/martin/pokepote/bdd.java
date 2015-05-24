@@ -17,9 +17,9 @@ public class bdd extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //create table with favori and equipe = 0 or 1
         db.execSQL("CREATE TABLE pkm (" +
-                    "id LONG PRIMARY KEY AUTOINCREMENT" +
-                    "favori INTEGER NOT NULL" +
-                    "equipe INTEGER NOT NULL" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "favori INTEGER NOT NULL, " +
+                    "equipe INTEGER NOT NULL " +
                  ");"
         );
     }
