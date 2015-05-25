@@ -26,15 +26,6 @@ public class bdd_DAO {
         bd.close();
     }
 
-    //ajouter un pokemon dans la BDD
-    public long addPkm(String id) {
-        ContentValues valeurs = new ContentValues();
-        valeurs.put("id", Integer.parseInt(id));
-        valeurs.put("favori", 0);
-        valeurs.put("equipe", 0);
-        return bd.insert("pkm", null, valeurs);
-    }
-
     //Set l'attribut favori du pkm
     public Long setFavori(String id, Boolean fav, Context appliCtxt){
 
